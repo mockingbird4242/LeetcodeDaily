@@ -1,0 +1,18 @@
+class Solution {
+    public Node connect(Node root) {
+        if (root == null) {
+            return null;
+        }
+        connectHelper(root.left, root.right);
+        return root;
+    }
+    private void connectHelper(Node left, Node right) {
+        if (left == null && right == null) {
+            return;
+        } 
+        left.next = right;
+        connectHelper(left.left, left.right);
+        connectHelper(right.left, right.right);
+        connectHelper(left.right, right.left);
+    }
+}
