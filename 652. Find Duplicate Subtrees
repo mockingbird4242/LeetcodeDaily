@@ -1,0 +1,22 @@
+class Solution {
+    Map<String, Integer> memo = new HashMap<>();
+    List<TreeNode> res = new LinkedList<>();
+    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        findDuplicateHelper(root);
+        return res;
+    }
+    private String findDuplicateHelper(TreeNode root) {
+        if (root == null) {
+            return "#";
+        }
+        String left = findDuplicateHelper(root.left);
+        String right = findDuplicateHelper(root.right);
+        String subTree = left + "," + right + "," + root.val;
+        int count = memo.getOrDefault(subTree, 0);
+        if (memo.containsKey(subTree) && memo.get(subTree) == 1) {
+            res.add(root);
+        }
+        memo.put(subTree, count + 1);
+        return subTree;
+    }
+}
