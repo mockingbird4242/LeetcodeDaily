@@ -1,0 +1,18 @@
+class Solution {
+    public int countNodes(TreeNode root) {
+        TreeNode leftSide = root, rightSide = root;
+        int leftHeight = 0, rightHeight = 0;
+        while (leftSide != null) {
+            leftSide = leftSide.left;
+            leftHeight++;
+        }
+        while (rightSide != null) {
+            rightSide = rightSide.right;
+            rightHeight++;
+        }
+        if (leftHeight == rightHeight) {
+            return (int)Math.pow(2, leftHeight) - 1;
+        }
+        return 1 + countNodes(root.left) + countNodes(root.right);
+    }
+}
